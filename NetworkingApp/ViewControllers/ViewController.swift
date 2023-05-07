@@ -19,7 +19,7 @@ final class ViewController: UIViewController {
 extension ViewController {
     
     private func fatchFruits() {
-        URLSession.shared.dataTask(with: URL(string: "https://www.fruityvice.com/api/fruit/all")!) { [weak self] data, _, error in
+        URLSession.shared.dataTask(with: URL(string: "https://www.fruityvice.com/api/fruit/all")!) { data, _, error in
             guard let data else {
                 print(error?.localizedDescription ?? "No error description")
                 return
