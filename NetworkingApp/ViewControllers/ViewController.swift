@@ -7,13 +7,33 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        fatchFruits()
     }
 
+}
 
+extension ViewController {
+    
+    private func fatchFruits() {
+        URLSession.shared.dataTask(with: URL(string: "https://www.fruityvice.com/api/fruit/all")!) { [weak self] data, _, error in
+            guard let data else {
+                print(error?.localizedDescription ?? "No error description")
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let fruits = try decoder.decode([Fruit].self, from: data)
+                print(fruits)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }.resume()
+    }
+    
 }
 
